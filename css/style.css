@@ -1,11 +1,61 @@
 /* global styles  */
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
 
 /* element styles */
+body {
+    background: rgb(253, 45, 184);
+    background: radial-gradient(circle, rgba(253, 45, 184, 0.6) 60%, rgba(34, 193, 195, 0.8) 85%);
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+header {
+    text-align: center;
+    background-color: #bfbfbf;
+    margin: 5rem auto 0;
+    width: 90%;
+    border-radius: 1rem 1rem 0 0;
+}
+
+h1 {
+    font-size: 6rem;
+    padding: 2rem 0 3rem;
+}
 
 /* layout */
+.container {
+    width: 90%;
+    margin: 0 auto;
+    max-height: 33vmin;
+    background-color: #bfbfbf;
+    border-radius: 0 0 1rem 1rem;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
 
 /* headings */
 
 /* buttons */
+.button-wrapper button {
+    padding: .5rem 1.5rem;
+    font-size: 1.4rem;
+    border-radius: .5rem;
+    border: 0;
+    background-color: rgb(241, 255, 47);
+}
+.button-wrapper button:hover {
+    background-color: rgb(47, 186, 255);
+}
 
 /* images */
+.game-graphic {
+ 
+}
