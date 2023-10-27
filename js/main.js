@@ -5,18 +5,14 @@ image assets paths
 */
 
 const INIT_STATE = {
-	boredom: 0,
-	hunger: 0,
-	sleepiness: 0,
+	boredom: 2,
+	hunger: 5,
+	sleepiness: 6,
 }
 /*----- state variables -----*/
 //state is the data that will change while the game is running
 
 let state
-
-// let boredom
-// let hunger
-// let sleepiness
 
 // Icebox features (age cycle for tama)
 let age
@@ -37,7 +33,26 @@ const gameBtnEls = document.querySelectorAll('#controller button')
 // TODO: add cache for restart button after game over
 
 /*----- event listeners -----*/
+gameBtnEls.forEach(function (btn) {
+	btn.addEventListener('click', handleBtnClick)
+})
 
+function handleBtnClick(event) {
+	console.log(event.target.innerText)
+
+	const convertProp = {
+		feed: 'hunger',
+		sleep: 'sleepiness',
+		play: 'boredom',
+	}
+
+	const key = convertProp[event.target.innerText]
+	console.log(key)
+
+	updateStat(key, -3)
+
+	render()
+}
 /*----- functions -----*/
 init() //start the game when js loads
 
@@ -52,12 +67,15 @@ function init() {
 
 	console.log('game has started')
 
-	// it will also call render () -> dom updates (trigger all render helper function -> updating stats)
 	render()
 }
 
 function runGame() {
-	updateStats()
+	if (continueGame()) {
+		updateStats()
+	} else {
+		gameOver()
+	}
 	render()
 }
 
@@ -77,18 +95,34 @@ function updateStats() {
 		// let randomAmount = Math.floor(Math.random() * 3)
 		// let currentValue = state[key]
 		// state[key] = currentValue + randomAmount
-        // console.log(key, state[key], randomAmount)
-        
-        updateStat(key, Math.floor(Math.random()*3))
+		// console.log(key, state[key], randomAmount)
+		updateStat(key, Math.floor(Math.random() * 3))
 	}
 }
 
 function updateStat(stat, value) {
+	if (state[stat] + value >= 0) {
+		state[stat] += value
+	} else {
+		state[stat] = 0
+	}
+}
 
-    if (state[stat] + value >= 0) {
-        stat[state] += value
-    } else { 
-        state[stat] = 0
-    }
+function continueGame() {
+	let keepRunning = true
+	let currentStats = []
+	for (let key in state) {
+		currentStats.push(state[key])
+	}
 
+	for (let stat of currentStats) {
+		if (stat >= 10) {
+			keepRunning = false
+		}
+	}
+	return keepRunning
+}
+
+function gameOver() {
+	clearInterval(timer)
 }
